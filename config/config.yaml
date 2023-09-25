@@ -3,9 +3,8 @@ winzou_state_machine:
         callbacks:
             guard:
                 catalog_mode_checker:
-                    on: ['address', 'skip_shipping', 'select_shipping', 'skip_payment', 'select_payment', 'complete']
-                    do: ['@asdoria_catalog_mode.state_machine.guard.catalog_mode_checker', '!isCatalogMode']
-                    args: ['object']
+                    on: ["address", "skip_shipping", "select_shipping", "skip_payment", "select_payment", "complete"]
+                    do: ["@asdoria_catalog_mode.state_machine.guard.catalog_mode_checker", "disabledCatalogMode"]
 sylius_ui:
     events:
         sylius.admin.channel.form.second_column_content:

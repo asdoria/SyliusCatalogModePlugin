@@ -25,14 +25,12 @@ use Sylius\Component\Core\Model\OrderInterface;
 class CatalogModeChecker
 {
     use CatalogModeCheckerTrait;
-    
+
     /**
-     * @param OrderInterface $order
-     *
      * @return bool
      */
-    public function isCatalogMode(OrderInterface $order): bool
+    public function disabledCatalogMode(): bool
     {
-        return $this->getCatalogModeChecker()->checker();
+        return !$this->getCatalogModeChecker()->checker();
     }
 }
