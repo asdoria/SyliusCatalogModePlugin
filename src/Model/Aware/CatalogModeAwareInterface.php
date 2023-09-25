@@ -12,7 +12,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Asdoria\SyliusCatalogModePlugin\Checkout;
+namespace Asdoria\SyliusCatalogModePlugin\Model\Aware;
 
 /**
  * Class CatalogModeAwareInterface.
