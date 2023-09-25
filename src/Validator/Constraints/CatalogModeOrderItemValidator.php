@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Asdoria\SyliusCatalogModePlugin\Validator\Constraints;
 
 use Asdoria\SyliusCatalogModePlugin\Checkout\CatalogModeAwareInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
+use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeCheckerTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Webmozart\Assert\Assert;
 
 /**
  * Class CatalogModeOrderItemValidator.
@@ -27,12 +27,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class CatalogModeOrderItemValidator extends ConstraintValidator
 {
-    /**
-     * @param ChannelContextInterface $channelContext
-     */
-    public function __construct(protected ChannelContextInterface $channelContext)
-    {
-    }
+    use CatalogModeCheckerTrait;
 
     /**
      * @param mixed      $value
@@ -40,12 +35,11 @@ class CatalogModeOrderItemValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (!$value instanceof OrderItemInterface) return;
 
-        $channel = $this->channelContext->getChannel();
-        if (!$channel instanceof CatalogModeAwareInterface) return;
-
-        if (!$channel->isCatalogMode()) return;
+        /** @var CatalogModeOrderItem $constraint */
+        Assert::isInstanceOf($constraint, CatalogModeOrderItem::class);
+        
+        if (!$this->getCatalogModeChecker()->checker()) return;
 
         $this->context->buildViolation($constraint->message)
             ->addViolation();

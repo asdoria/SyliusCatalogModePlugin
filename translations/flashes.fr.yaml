@@ -1,2 +1,3 @@
 asdoria_catalog_mode:
-    ui:
+    channel:
+        catalog_mode_error: Impossible de continue le canal est en mode catalogue

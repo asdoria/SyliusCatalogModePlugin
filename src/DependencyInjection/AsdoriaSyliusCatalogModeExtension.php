@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace Asdoria\SyliusCatalogModePlugin\DependencyInjection;
 
+use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -24,8 +28,10 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  *
  * @author  Philippe Vesin <pve.asdoria@gmail.com>
  */
-final class AsdoriaSyliusCatalogModeExtension  extends Extension
+final class AsdoriaSyliusCatalogModeExtension  extends AbstractResourceExtension implements PrependExtensionInterface, ExtensionInterface
 {
+    use PrependDoctrineMigrationsTrait;
+
     /**
      * @param array            $configs
      * @param ContainerBuilder $container
@@ -36,5 +42,39 @@ final class AsdoriaSyliusCatalogModeExtension  extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yaml');
+    }
+
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        $this->prependDoctrineMigrations($container);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMigrationsNamespace(): string
+    {
+        return 'Asdoria\SyliusCatalogModePlugin\Migrations';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMigrationsDirectory(): string
+    {
+        return '@AsdoriaSyliusCatalogModePlugin/src/Migrations';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getNamespacesOfMigrationsExecutedBefore(): array
+    {
+        return ['Sylius\Bundle\CoreBundle\Migrations'];
     }
 }

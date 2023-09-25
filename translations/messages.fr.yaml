@@ -1,2 +1,4 @@
 asdoria_catalog_mode:
-    ui:
+    form:
+        channel:
+            catalog_mode: Mode Catalogue

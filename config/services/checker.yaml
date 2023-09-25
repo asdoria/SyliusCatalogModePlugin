@@ -1,0 +1,4 @@
+services:
+    Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeChecker:
+        calls:
+            - [ setChannelContext, ['@sylius.context.channel']]

@@ -23,6 +23,12 @@ use Symfony\Component\Validator\Constraint;
 class CatalogModeOrderItem extends Constraint
 {
     public $message = 'asdoria_catalog_mode.order_item.catalog_mode.enabled';
+
+
+    public function validatedBy(): string
+    {
+        return 'asdoria_catalog_mode_is_enabled';
+    }
     
     /**
      * @return string

@@ -1,0 +1,4 @@
+App\Entity\Order\OrderItem:
+    constraints:
+        - Asdoria\SyliusCatalogModePlugin\Validator\Constraints\CatalogModeOrderItem:
+              groups: [sylius, sylius_checkout_complete]

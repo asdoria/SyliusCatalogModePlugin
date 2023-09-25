@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Asdoria\SyliusCatalogModePlugin\StateMachine\Guard;
 
-use App\Entity\Order\Order;
 use Asdoria\SyliusCatalogModePlugin\Checkout\CatalogModeAwareInterface;
+use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeCheckerTrait;
 use Sylius\Component\Core\Model\OrderInterface;
 
 /**
@@ -24,6 +24,8 @@ use Sylius\Component\Core\Model\OrderInterface;
  */
 class CatalogModeChecker
 {
+    use CatalogModeCheckerTrait;
+    
     /**
      * @param OrderInterface $order
      *
@@ -31,11 +33,6 @@ class CatalogModeChecker
      */
     public function isCatalogMode(OrderInterface $order): bool
     {
-        /** @var Order $order */
-        $channel = $order->getChannel();
-
-        if (!$channel instanceof CatalogModeAwareInterface) return false;
-
-        return $channel->isCatalogMode();
+        return $this->getCatalogModeChecker()->checker();
     }
 }

@@ -2,3 +2,5 @@ services:
     asdoria_catalog_mode.state_machine.guard.catalog_mode_checker:
         public: true
         class: Asdoria\SyliusCatalogModePlugin\StateMachine\Guard\CatalogModeChecker
+        calls:
+            - ['setCatalogModeChecker', ['@Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeChecker']]

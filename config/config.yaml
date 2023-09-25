@@ -1,7 +1,3 @@
-doctrine_migrations:
-    migrations_paths:
-        'Asdoria\SyliusCatalogModePlugin\Migrations': '@AsdoriaSyliusCatalogModePlugin/Migrations'
-
 winzou_state_machine:
     sylius_order_checkout:
         callbacks:
@@ -10,3 +6,10 @@ winzou_state_machine:
                     on: ['address', 'skip_shipping', 'select_shipping', 'skip_payment', 'select_payment', 'complete']
                     do: ['@asdoria_catalog_mode.state_machine.guard.catalog_mode_checker', '!isCatalogMode']
                     args: ['object']
+sylius_ui:
+    events:
+        sylius.admin.channel.form.second_column_content:
+            blocks:
+                asdoria_catalog_mode_channel:
+                    template: "@AsdoriaSyliusCatalogModePlugin/Admin/Channel/_catalogMode.html.twig"
+                    priority: 10

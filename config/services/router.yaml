@@ -4,3 +4,5 @@ services:
         decorates: sylius.router.checkout_state
         arguments:
             $inner: '@asdoria_catalog_mode.router.checkout_state.inner'
+        calls:
+            - ['setCatalogModeChecker', ['@Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeChecker']]

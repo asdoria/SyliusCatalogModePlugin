@@ -1,0 +1,4 @@
+services:
+    Asdoria\SyliusCatalogModePlugin\Form\Extension\ChannelTypeExtension:
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\ChannelBundle\Form\Type\ChannelType }

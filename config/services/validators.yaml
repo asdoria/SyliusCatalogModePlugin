@@ -1,6 +1,6 @@
 services:
     Asdoria\SyliusCatalogModePlugin\Validator\Constraints\CatalogModeOrderItemValidator:
-        arguments:
-            $channelContext: '@sylius.context.channel'
+        calls:
+            - [setCatalogModeChecker, ['@Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeChecker']]
         tags:
-            - { name: 'validator.constraint_validator', alias: 'sylius_has_all_prices_defined' }
+            - { name: 'validator.constraint_validator', alias: 'asdoria_catalog_mode_is_enabled' }

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Asdoria\SyliusCatalogModePlugin\Checkout;
 
+use Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeCheckerInterface;
+use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeCheckerTrait;
 use Sylius\Bundle\CoreBundle\Checkout\CheckoutStateUrlGeneratorInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -28,14 +30,13 @@ use Symfony\Component\Routing\RequestContext;
  */
 class CheckoutStateUrlGenerator implements CheckoutStateUrlGeneratorInterface
 {
+    use CatalogModeCheckerTrait;
+    
     /**
      * @param CheckoutStateUrlGeneratorInterface $inner
-     * @param ChannelContextInterface            $channelContext
      */
     public function __construct(
-        protected CheckoutStateUrlGeneratorInterface $inner,
-        protected ChannelContextInterface $channelContext,
-        protected FlashBagInterface $flashBag
+        protected CheckoutStateUrlGeneratorInterface $inner
     ) {
 
     }
@@ -45,12 +46,10 @@ class CheckoutStateUrlGenerator implements CheckoutStateUrlGeneratorInterface
         array $parameters = [],
         int $referenceType = self::ABSOLUTE_PATH,
     ): string {
-        $channel = $this->channelContext->getChannel();
-        if (!$channel instanceof CatalogModeAwareInterface || !$channel->isCatalogMode()) {
-            return $this->inner->generateForOrderCheckoutState($order, $parameters, $referenceType);
-        }
-
-        return $this->generateForCart($parameters, $referenceType);
+        return $this->catalogModeChecker->checker() ?
+            $this->generateForCart($parameters, $referenceType) :
+            $this->inner->generateForOrderCheckoutState($order, $parameters, $referenceType)
+        ;
     }
 
     public function generateForCart(array $parameters = [], int $referenceType = self::ABSOLUTE_PATH): string {
