@@ -1,0 +1,4 @@
+asdoria_catalog_mode:
+    order_item:
+        catalog_mode:
+            enabled: the catalog mode is enabled for this channel
