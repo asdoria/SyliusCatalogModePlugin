@@ -37,8 +37,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Channel;
 
-+use Asdoria\SyliusCatalogModePlugin\Model\Aware\CatalogModeAwareInterface;
-+use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeTrait;
++ use Asdoria\SyliusCatalogModePlugin\Model\Aware\CatalogModeAwareInterface;
++ use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Channel as BaseChannel;
 
@@ -48,15 +48,15 @@ use Sylius\Component\Core\Model\Channel as BaseChannel;
  */
 class Channel 
 extends BaseChannel 
-+implements CatalogModeAwareInterface
++ implements CatalogModeAwareInterface
 {
-    +use CatalogModeTrait;
+    + use CatalogModeTrait;
 }
 ```
 
 5. Override _addToCart.html.twig into `templates/bundles/SyliusShopBundle/Product/Show/_addToCart.html.twig`:
 ```diff
-+{% if sylius.channel.isCatalogMode() == false %}
++ {% if sylius.channel.isCatalogMode() == false %}
     {% set product = order_item.variant.product %}
     
     {% form_theme form '@SyliusShop/Form/theme.html.twig' %}
@@ -82,7 +82,7 @@ extends BaseChannel
         {{ form_row(form._token) }}
         {{ form_end(form, {'render_rest': false}) }}
     </div>
-+{% endif %}
++ {% endif %}
 ```
 
 ## Demo
