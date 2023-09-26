@@ -30,7 +30,7 @@ imports:
 
 4In `src/Entity/Channel/Channel.php`. Import the following classes, traits and methods.
 
-```PHP
+```diff
 <?php
 
 declare(strict_types=1);
@@ -56,7 +56,7 @@ extends BaseChannel
 
 5. Override _addToCart.html.twig into `templates/bundles/SyliusShopBundle/Product/Show/_addToCart.html.twig`:
 ```diff
-{% if sylius.channel.isCatalogMode() == false %}
++{% if sylius.channel.isCatalogMode() == false %}
     {% set product = order_item.variant.product %}
     
     {% form_theme form '@SyliusShop/Form/theme.html.twig' %}
@@ -82,7 +82,7 @@ extends BaseChannel
         {{ form_row(form._token) }}
         {{ form_end(form, {'render_rest': false}) }}
     </div>
-{% endif %}
++{% endif %}
 ```
 
 ## Demo
