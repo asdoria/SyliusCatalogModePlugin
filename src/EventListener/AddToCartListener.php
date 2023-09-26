@@ -14,7 +14,7 @@ namespace Asdoria\SyliusCatalogModePlugin\EventListener;
 
 use Asdoria\SyliusCatalogModePlugin\Traits\CatalogModeCheckerTrait;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
-use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AccessCheckListener.
@@ -24,10 +24,10 @@ use Symfony\Component\Translation\Translator;
 class AddToCartListener
 {
     use CatalogModeCheckerTrait;
-    
-    public function __construct(protected Translator $translator) {
+
+    public function __construct(protected TranslatorInterface $translator) {
     }
-    
+
     /**
      * @param ResourceControllerEvent $event
      * @return void
