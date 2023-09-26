@@ -1,5 +1,7 @@
 services:
     Asdoria\SyliusCatalogModePlugin\EventListener\AddToCartListener:
+        arguments:
+            $translator: '@translator'
         calls:
             - [ 'setCatalogModeChecker', [ '@Asdoria\SyliusCatalogModePlugin\Checker\CatalogModeChecker' ] ]
         tags:
