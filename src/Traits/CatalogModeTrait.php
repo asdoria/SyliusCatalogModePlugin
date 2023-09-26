@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Asdoria\SyliusCatalogModePlugin\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class CatalogModeTrait.
  *
